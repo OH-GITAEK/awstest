@@ -34,4 +34,4 @@ jobs:
         key: ${{ secrets.EC2_KEY }}
         script: |
           docker pull ${{ secrets.DOCKER_USERNAME }}/awstest:latest
-          docker-compose -f /home/ubuntu/yourproject/docker-compose.yml up -d
+          docker-compose -f /home/ubuntu/awstest/docker-compose.yml up -d
