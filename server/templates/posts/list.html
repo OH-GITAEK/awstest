@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%block head%}
+  <title>사과 마켓</title>
+{%endblock%}
+
+{%block content%}
+  <div class="search-box">    
+    <form action="/">      
+      <input class = 'form-control mx-2' type="input" name="search_txt" placeholder="검색어..." />
+      <input class = 'form-control mx-2' type="text" name="min_price" placeholder="최소 가격" />
+      <input class = 'form-control mx-2' type="text" name="max_price" placeholder="최대 가격" />
+      <input class = 'btn btn-outline-success mx-2' type="submit" value="검색" />      
+    </form>
+    <a href="{% url 'posts:create' %}" class = 'btn btn-secondary mx-2'>글 생성</a>
+  </div>
+
+  <div class="content-wrapper">
+    <!-- 글 목록 -->
+    {% for post in posts %}
+    <div class="item">
+      {% if post.photo.url != null and post.photo.url != '' %}
+        <img src="{{post.photo.url}}" alt="대체텍스트">
+      {% else %}
+        <img src="{% static 'posts/image/no_img.png' %}" alt="">
+      {% endif %}
+      <div class="info">
+        <a href="{% url 'posts:detail' post.pk%}" class="title">
+          {{post.title}}
+        </a>
+        <p class="region">지역 : {{post.region}}</p>
+        <p class="price">가격 : {{post.price}}</p>
+        <p class="create-date">작성일 : {{post.created_date}}</p>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+{%endblock%}
