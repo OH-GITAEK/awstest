@@ -33,5 +33,12 @@ jobs:
         username: ubuntu
         key: ${{ secrets.EC2_KEY }}
         script: |
-          docker pull ${{ secrets.DOCKER_USERNAME }}/awstest:latest
-          docker-compose -f /home/ubuntu/awstest/docker-compose.yml up -d
+          cd /home/ubuntu
+          if [ ! -d "awstest" ]; then
+            git clone https://github.com/OH-GITAEK/awstest.git
+          else
+            cd awstest
+            git pull origin main
+          fi
+          sudo docker pull ${{ secrets.DOCKER_USERNAME }}/awstest:latest
+          sudo docker-compose -f /home/ubuntu/awstest/docker-compose.yml up -d
