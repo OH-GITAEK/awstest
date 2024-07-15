@@ -44,3 +44,13 @@ jobs:
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/awstest:latest
           sudo docker-compose down
           sudo docker-compose up --build -d
+
+    - name: Obtain SSL certificate
+      uses: appleboy/ssh-action@v0.1.5
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ubuntu
+        key: ${{ secrets.EC2_KEY }}
+        script: |
+          sudo docker run --rm -v /home/ubuntu/awstest/certbot/conf:/etc/letsencrypt -v /home/ubuntu/awstest/certbot/www:/var/www/certbot certbot/certbot certonly --webroot --webroot-path=/var/www/certbot --email your_email@example.com --agree-tos --no-eff-email -d your_domain.com
+          sudo docker-compose -f /home/ubuntu/awstest/docker-compose.yml up -d
