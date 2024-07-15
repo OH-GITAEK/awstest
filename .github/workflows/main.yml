@@ -40,5 +40,7 @@ jobs:
             cd awstest
             git pull origin main
           fi
+          cd /home/ubuntu/awstest
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/awstest:latest
-          sudo docker-compose -f /home/ubuntu/awstest/docker-compose.yml up -d
+          sudo docker-compose down
+          sudo docker-compose up --build -d
