@@ -33,6 +33,9 @@ jobs:
         username: ubuntu
         key: ${{ secrets.EC2_KEY }}
         script: |
+          sudo systemctl stop nginx
+          sudo kill $(sudo lsof -t -i :80)
+          sudo kill $(sudo lsof -t -i :443)
           cd /home/ubuntu
           if [ ! -d "awstest" ]; then
             git clone https://github.com/OH-GITAEK/awstest.git

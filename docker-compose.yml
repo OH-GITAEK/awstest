@@ -10,7 +10,6 @@ services:
     expose:
       - "8000"
 
-
   nginx:
     image: nginx:latest
     ports:
