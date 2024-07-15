@@ -9,5 +9,4 @@ services:
     working_dir: /app/server
     ports:
       - "8000:8000"
-    env_file:
-      - .env
+
